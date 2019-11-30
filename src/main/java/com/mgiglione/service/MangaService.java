@@ -2,6 +2,7 @@ package com.mgiglione.service;
 
 import java.util.List;
 
+import com.mgiglione.repository.MangaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,16 @@ public class MangaService {
 
     @Autowired
     RestTemplate restTemplate;
-    
+
+    @Autowired
+    MangaRepository mangaRepository;
     
     public List<Manga> getMangasByTitle(String title) {
-        return restTemplate.getForEntity(MANGA_SEARCH_URL+title, MangaResult.class).getBody().getResult();
+        return mangaRepository.findByTitleContainingIgnoreCase(title);
+    }
+
+    public List<Manga> getAll() {
+        return mangaRepository.findAll();
     }
 
 }

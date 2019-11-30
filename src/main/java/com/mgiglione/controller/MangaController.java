@@ -36,4 +36,9 @@ public class MangaController {
         return mangaService.getMangasByTitle(title);
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public @ResponseBody List<Manga> get() {
+        return mangaService.getAll();
+    }
+
 }
